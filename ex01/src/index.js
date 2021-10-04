@@ -1,4 +1,4 @@
-var i, c, capslock = 0;
+var i, c, capslock = 0, shift = 0;
 
 function init() {
     i = document.getElementById('keyboard_buttons').getElementsByTagName('button');
@@ -21,11 +21,22 @@ function makeClickHandler(c) {
             } else {
                 capslock = 0;
             }
+        } else if(i[c].id === 'shift') {
+            shift = 1;
         } else if(capslock === 1) {
+            if(shift === 1) {
+                document.getElementById('text_area').value += this.value.toLowerCase();
+                shift = 0;
+            } else {
             document.getElementById('text_area').value += this.value.toUpperCase();
-        }
-        else {
+            }
+        } else {
+            if( shift === 1) {
+                document.getElementById('text_area').value += this.value.tuUpperCase();
+                shift = 0;
+            } else {
             document.getElementById('text_area').value += this.value.toLowerCase();
+            }
        }
     };
 }
